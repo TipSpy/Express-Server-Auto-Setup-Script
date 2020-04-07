@@ -7,7 +7,7 @@ if [ "$nodeyn" != "y" ]; then
     echo "Please install Node.JS and NPM and run the script again."
 else
     echo "Perfect. Let's begin."
-    echo "First we need a name. What would you like to call this server? (No spaces!)"
+    echo "First we need a name. What would you like to call this server? (No spaces!):"
     read serverName
     echo "'$serverName'? Sounds awesome."
     echo "Next let's create $serverName's home. Type the path where you would like the folder to be created. (/path/to/destination)"
@@ -30,17 +30,19 @@ else
         echo "Next we will install express in $serverName's home."
         npm --prefix $destination/$serverName install express
         echo "Okay, now that we did that, let's make the service."
-        echo "Would you like the service to be called '$serverName'? (y/n)"
+        echo "Would you like the service to be called '$serverName'? (y/n):"
         read serviceyn
+        serviceName="failed"
         if [ "$serviceyn" != "y" ]; then
             echo "Please enter the desired service name (No spaces!):"
             read serviceName
         else
             serviceName=$serverName
         fi
-        echo "Would you like the Syslog identifier for the service to be '$serverName'? (y/n)"
+        syslogIden="failed"
+        echo "Would you like the Syslog identifier for the service to be '$serverName'? (y/n):"
         read syslogyn
-        if [ "$serviceyn" != "y" ]; then
+        if [ "$syslogyn" != "y" ]; then
             echo "Please enter the desired syslog identifier (No spaces!):"
             read syslogIden
         else
@@ -64,7 +66,7 @@ else
 
             [Install]
             WantedBy=multi-user.target" >> /etc/systemd/system/$serviceName.service
-        echo "Would you like to enable and start the service now? (y/n)"
+        echo "Would you like to enable and start the service now? (y/n):"
         read enableyn
         if [ "$enableyn" != "y" ]; then
             echo "Okay, you can enable the service manually later by typing 'systemctl enable $serviceName'"
@@ -74,6 +76,7 @@ else
         fi
         echo "The script is complete! Enjoy your new express server!"
         echo "The server lives at '$destination/$serverName' and the service is called '$serviceName'"
+        echo "You can view the test page in a web browser by navigating to this machine's IP address with the port $listenPort (I.E. 127.0.0.1:$listenPort)"
         echo "Thanks for using my script! ~Matt Dittmer (@TipSpy - GitHub)"
     fi
 fi
