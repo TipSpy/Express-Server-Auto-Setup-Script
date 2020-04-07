@@ -28,7 +28,7 @@ else
         echo "Welcome to $serverName's index page!</body></html>" >> index.html
         cp index.html $destination/$serverName/html/index.html
         echo "Next we will install express in $serverName's home."
-        npm --prefix ./$destination/$serverName install express
+        npm --prefix $destination/$serverName install express
         echo "Okay, now that we did that, let's make the service."
         echo "Would you like the service to be called '$serverName'? (y/n)"
         read serviceyn
@@ -36,7 +36,7 @@ else
             echo "Please enter the desired service name (No spaces!):"
             read serviceName
         else
-            serviceName = $serverName
+            serviceName=$serverName
         fi
         echo "Would you like the Syslog identifier for the service to be '$serverName'? (y/n)"
         read syslogyn
@@ -44,7 +44,7 @@ else
             echo "Please enter the desired syslog identifier (No spaces!):"
             read syslogIden
         else
-            syslogIden = $serverName
+            syslogIden=$serverName
         fi
         echo "Next we need to create a user for the service."
         echo "Enter the desired username for the service user (No spaces!):"
