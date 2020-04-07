@@ -63,8 +63,7 @@ else
             Environment=NODE_ENV=production
 
             [Install]
-            WantedBy=multi-user.target" >> server.service
-        cp server.service /etc/systemd/system/$serviceName.service
+            WantedBy=multi-user.target" >> /etc/systemd/system/$serviceName.service
         echo "Would you like to enable and start the service now? (y/n)"
         read enableyn
         if [ "$enableyn" != "y" ]; then
